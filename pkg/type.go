@@ -3,7 +3,7 @@ package pkg
 type (
 	ConfigRes struct {
 		Port  int
-		Env   string
+		Env   EnvMode
 		DbUrl string
 		Mail  MailConfig
 	}
@@ -14,4 +14,11 @@ type (
 		User     string
 		Password string
 	}
+)
+
+type EnvMode string
+
+const (
+	EnvProduction  EnvMode = "production"
+	EnvDevelopment EnvMode = "development"
 )

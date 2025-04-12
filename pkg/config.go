@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"errors"
 	"os"
 	"strconv"
 
@@ -15,7 +16,12 @@ func GetEnv(filename string) error {
 }
 
 func InitConfig() error {
-	Config.Env = os.Getenv("ENV")
+	envMode := os.Getenv("ENV")
+	if !isValidEnv(envMode) {
+		return errors.New("invalid env mode")
+	}
+
+	Config.Env = EnvMode(envMode)
 	Config.DbUrl = os.Getenv("DATABASE_URL")
 
 	port := os.Getenv("PORT")
@@ -41,4 +47,12 @@ func InitConfig() error {
 	}
 
 	return nil
+}
+
+func isValidEnv(env string) bool {
+	if env == string(EnvDevelopment) || env == string(EnvDevelopment) {
+		return true
+	}
+
+	return false
 }
