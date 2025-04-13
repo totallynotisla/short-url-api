@@ -50,7 +50,7 @@ func InitConfig() error {
 }
 
 func isValidEnv(env string) bool {
-	if env == string(EnvDevelopment) || env == string(EnvDevelopment) {
+	if env == string(EnvDevelopment) || env == string(EnvProduction) {
 		return true
 	}
 
