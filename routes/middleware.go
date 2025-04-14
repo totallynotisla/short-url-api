@@ -1,4 +1,4 @@
-package route
+package routes
 
 import (
 	"net/http"
@@ -7,17 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func SetupRouter() *gin.Engine {
-	r := gin.New()
+type Middleware struct{}
 
-	r.GET("/ping", func(c *gin.Context) {
-
-		c.JSON(http.StatusOK, pkg.ApiResponse{
-			Success: true,
-			Message: "Pong!",
-		})
-	})
-
+func (Middleware) SetUp(r *gin.Engine) {
 	r.NoRoute(func(c *gin.Context) {
 		c.JSON(http.StatusNotFound, pkg.ApiResponse{
 			Success: false,
@@ -31,6 +23,4 @@ func SetupRouter() *gin.Engine {
 			Message: "Method not allowed",
 		})
 	})
-
-	return r
 }

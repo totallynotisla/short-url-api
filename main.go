@@ -4,7 +4,9 @@ import (
 	"fmt"
 
 	"short-url/pkg"
-	route "short-url/routes"
+	"short-url/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
@@ -14,7 +16,10 @@ func main() {
 	}
 	pkg.InitConfig()
 
-	r := route.SetupRouter()
+	if pkg.Config.Env == pkg.EnvProduction {
+		gin.SetMode(gin.ReleaseMode)
+	}
+	r := routes.SetupRouter()
 	// Listen and Server in 0.0.0.0:8080
 	r.Run(fmt.Sprintf(":%d", pkg.Config.Port))
 }
